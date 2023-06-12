@@ -10,37 +10,38 @@ void criarMatriz() { // FUNÇÃO RESPONSÁVEL PELA CRIAÇÃO DA MATRIZ DE ADJAC�
         if (n < 0 || n > max){
             printf("[ENTRADA INVÁLIDA]\nO número de Vértices não pode ser menor que zero ou maior que o número máximo de Vértices (%d). Tente Novamente.\n", max);
         }
-    }while(n < 0 || n > max) // O valor de n é válido apenas se ele for um valor inteiro entre 0 e o valor de max.
+    }while(n < 0 || n > max); // O valor de n é válido apenas se ele for um valor inteiro entre 0 e o valor de max.
     inserirArestas();
 }
 
 void inserirArestas(){ // FUNÇÃO RESPONSAVEL PELA INSERÇÃO DAS ARESTAS NA MATRIZ
-    int verticeOrigem, verticeDestino;
+    int verticeOrigem, verticeDestino; // Criam as variáveis locais de vértice de origem e vértice de destino
+    // verticeOrigem: Vértice da qual a aresta surge; verticeDestino: Vértice da qual a aresta chega
     printf("\n[INSERÇÃO DE ARESTAS]\n");
-    for (int i = 1; i <= i+1; i++) {
-        printf("\nInsira os Vértices de Origem e de Destino da %dº Aresta (Insira \"0\" em ambos para encerrar a inserção)\n", i);
+    do{ // Laço de repetição para realizar a inserção de arestas. Ele não possui limite uma vez que uma vértice pode se ligar a outra mais de uma vez sem limites.
+        printf("\nInsira os Vértices de Origem e de Destino da %dº Aresta (Insira \"0\" em ambos para encerrar a inserção)\n", i); // Para encerrar o laço basta que os Vértices de origem e de destino sejam iguais a 0
         printf("Vértice de Origem da Aresta: ");
         scanf("%d", &verticeOrigem);
         printf("Vértice de Destino da Aresta: ");
         scanf("%d", &verticeDestino);
-        if ((verticeOrigem == 0) && (verticeDestino == 0)){
+        if ((verticeOrigem == 0) && (verticeDestino == 0)){ // situação aonde o laço é encerrado
             print("\n[INSERÇÃO ENCERRADA]\n");
             break;
         }
-        else if (verticeOrigem > n || verticeDestino > n || verticeOrigem <= 0 || verticeDestino <= 0) {
+        else if (verticeOrigem > n || verticeDestino > n || verticeOrigem <= 0 || verticeDestino <= 0) { // Situação aonde o valor dos vértices inseridos não válidos
             printf("[ENTRADA INVÁLIDA]\nOs valores dos Vértices não podem ser menores ou igual a zero ou maiores que o número de Vértices. Tente Novamente.\n");
             i--;
         } else{
-            matrizAdj[verticeOrigem][verticeDestino] += 1;
+            matrizAdj[verticeOrigem][verticeDestino] += 1; // Este elemento na matriz recebe adiciona mais 1 representando a quantidade de arestas entre o vértice de origem e de destino
             printf("\n[INSERÇÃO REALIZADA]\n");
         }
-    }
+    }while (verticeOrigem != 0 && verticeDestino != 0);
 }
  
-void apresentar() {
+void apresentar() { // FUNCÇÃO RESPONSÁVEL POR IMPRIMIR A MATRIZ
     printf("\n[APRESENTAÇÃO DA MATRIZ]\n");
     for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++)
+        for (int j = 1; j <= n; j++) // i e j percorrem pelos indexes da Matriz até chegarem ao 
             printf("%4d", matrizAdj[i][j]);
         printf("\n");
     }
