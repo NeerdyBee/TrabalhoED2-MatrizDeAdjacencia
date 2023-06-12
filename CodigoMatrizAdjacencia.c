@@ -1,20 +1,20 @@
 #include<stdio.h>
-static const int max = 20; // Define o valor máximo de Vértices que *podem* ser inseridos na Matriz
-int matrizAdj[max][max]; // Cria uma matriz de duas dimensões, aonde 
-int n = -1;
+static const int max = 20; // Define o valor máximo de Vértices que *podem* ser inseridos na Matriz.
+int matrizAdj[max][max]; // Cria uma matriz de duas dimensões, aonde o valor definido contido nelas é igual a max.
+int n; // Define a variável n que será responsável por armazenar o o número de Vértices presentes na matriz.
  
 void criarMatriz() { // FUNÇÃO RESPONSÁVEL PELA CRIAÇÃO DA MATRIZ DE ADJACÊNCIA
-    while(n < 0 || n > max){
+    do{ // Um laço de repetição é iniciado para que seja registrado um valor válido para o número de Vértices iniciais da Matriz.
         printf("Insira o número de Vértices da Matriz: ");
         scanf("%d", &n);
-        if (n < 0){
+        if (n < 0 || n > max){
             printf("[ENTRADA INVÁLIDA]\nO número de Vértices não pode ser menor que zero ou maior que o número máximo de Vértices (%d). Tente Novamente.\n", max);
         }
-    }
+    }while(n < 0 || n > max) // O valor de n é válido apenas se ele for um valor inteiro entre 0 e o valor de max.
     inserirArestas();
 }
 
-void inserirArestas(){
+void inserirArestas(){ // FUNÇÃO RESPONSAVEL PELA INSERÇÃO DAS ARESTAS NA MATRIZ
     int verticeOrigem, verticeDestino;
     printf("\n[INSERÇÃO DE ARESTAS]\n");
     for (int i = 1; i <= i+1; i++) {
