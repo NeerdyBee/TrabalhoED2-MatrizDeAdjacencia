@@ -1,5 +1,5 @@
 #include<stdio.h>
-static const int max = 20; // Define o valor máximo de Vértices que *podem* ser inseridos na Matriz.
+#define max 20 // Define o valor máximo de Vértices que *podem* ser inseridos na Matriz.
 int matrizAdj[max][max]; // Cria uma matriz de duas dimensões, aonde o valor definido contido nelas é igual a max.
 int n; // Define a variável n que será responsável por armazenar o o número de Vértices presentes na matriz.
  
@@ -11,6 +11,11 @@ void criarMatriz() { // FUNÇÃO RESPONSÁVEL PELA CRIAÇÃO DA MATRIZ DE ADJAC�
             printf("[ENTRADA INVÁLIDA]\nO número de Vértices não pode ser menor que zero ou maior que o número máximo de Vértices (%d). Tente Novamente.\n", max);
         }
     }while(n < 0 || n > max); // O valor de n é válido apenas se ele for um valor inteiro entre 0 e o valor de max.
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++){
+            matrizAdj[i][j] = 0;
+        }
+    }
     inserirArestas();
 }
 
@@ -25,7 +30,7 @@ void inserirArestas(){ // FUNÇÃO RESPONSAVEL PELA INSERÇÃO DAS ARESTAS NA MA
         printf("Vértice de Destino da Aresta: ");
         scanf("%d", &verticeDestino);
         if ((verticeOrigem == 0) && (verticeDestino == 0)){ // situação aonde o laço é encerrado
-            print("\n[INSERÇÃO ENCERRADA]\n");
+            printf("\n[INSERÇÃO ENCERRADA]\n");
             break;
         }
         else if (verticeOrigem > n || verticeDestino > n || verticeOrigem <= 0 || verticeDestino <= 0) { // Situação aonde o valor dos vértices inseridos não válidos
@@ -40,10 +45,10 @@ void inserirArestas(){ // FUNÇÃO RESPONSAVEL PELA INSERÇÃO DAS ARESTAS NA MA
  
 void apresentar() { // FUNCÇÃO RESPONSÁVEL POR IMPRIMIR A MATRIZ
     printf("\n[APRESENTAÇÃO DA MATRIZ]\n");
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++) // i e j percorrem pelos indexes da Matriz até chegarem ao 
-            printf("%4d", matrizAdj[i][j]);
-        printf("\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) // i e j percorrem pelos indexes da Matriz até chegarem ao último index 
+            printf("| %4d ", matrizAdj[i][j]);
+        printf("|\n");
     }
 }
  
@@ -51,7 +56,7 @@ void inserirVertice() {
     printf("\n[INSERÇÃO DE UM NOVO VÉRTICE]\n");
     if(n < max){
         printf("O novo Vértice %d foi inserido com sucesso.\n", n);
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             matrizAdj[i][n] = 0;
             matrizAdj[n][i] = 0;
         }
@@ -95,7 +100,7 @@ int main() {
         printf("| 2.  Inserir Arestas;               |\n");
         printf("| 3.  Deletar um Vértice;            |\n");
         printf("| 4.  Apresentar Matriz;             |\n");
-        printf("| 5.  Encerrar\n                     |");
+        printf("| 5.  Encerrar                       |\n");
         printf("====================================\n");
         printf("\nEscolha uma das opções acima: ");
         scanf("%d", &opcao);
