@@ -29,7 +29,7 @@ void inserirArestas(){ // FUNÇÃO RESPONSAVEL PELA INSERÇÃO DAS ARESTAS NA MA
         scanf("%d", &verticeOrigem);
         printf("Vértice de Destino da Aresta: ");
         scanf("%d", &verticeDestino);
-        if ((verticeOrigem == 0) && (verticeDestino == 0)){ // situação aonde o laço é encerrado
+        if ((verticeOrigem == 0) && (verticeDestino == 0)){ // Situação aonde o laço é encerrado
             printf("\n[INSERÇÃO ENCERRADA]\n");
             break;
         }
@@ -37,52 +37,61 @@ void inserirArestas(){ // FUNÇÃO RESPONSAVEL PELA INSERÇÃO DAS ARESTAS NA MA
             printf("[ENTRADA INVÁLIDA]\nOs valores dos Vértices não podem ser menores ou igual a zero ou maiores que o número de Vértices. Tente Novamente.\n");
             i--;
         } else{
-            matrizAdj[verticeOrigem][verticeDestino] += 1; // Este elemento na matriz recebe adiciona mais 1 representando a quantidade de arestas entre o vértice de origem e de destino
+            matrizAdj[verticeOrigem][verticeDestino] += 1; // Este elemento na matriz adiciona mais 1 representando a quantidade de ligações entre o vértice de origem e de destino
             printf("\n[INSERÇÃO REALIZADA]\n");
         }
     }while (verticeOrigem != 0 && verticeDestino != 0);
 }
  
-void apresentar() { // FUNCÇÃO RESPONSÁVEL POR IMPRIMIR A MATRIZ
+void apresentar() { // FUNÇÃO RESPONSÁVEL POR IMPRIMIR A MATRIZ
     printf("\n[APRESENTAÇÃO DA MATRIZ]\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) // i e j percorrem pelos indexes da Matriz até chegarem ao último index 
-            printf("| %4d ", matrizAdj[i][j]);
+    printf("   ");
+    for (int h = 1; h <= n, h++){
+        printf("| %d ", h);
+    }
+    printf("|\n");
+    for (int i = 0; i < n; i++) { // i percorre os indexes pela matriz representando suas linhas
+        printf("%d ", i);
+        for (int j = 0; j < n; j++) // j percorre os indexes pela matriz representando suas colunas
+            printf("| %4d ", matrizAdj[i][j]); // i e j percorrem pelos indexes da Matriz até chegarem ao último index e imprimindo as linhas de ligações entres os vértices
         printf("|\n");
     }
 }
  
-void inserirVertice() {
+void inserirVertice() { // FUNÇÃO RESPONSÁVEL POR CRIAR UM NOVO VÉRTICE NO FINAL DA MATRIZ
     printf("\n[INSERÇÃO DE UM NOVO VÉRTICE]\n");
-    if(n < max){
-        printf("O novo Vértice %d foi inserido com sucesso.\n", n);
-        for (int i = 0; i < n; i++) {
-            matrizAdj[i][n] = 0;
-            matrizAdj[n][i] = 0;
+    if(n < max){  // Condição para que seja possível inserir um novo vértice, aonda n ainda seja menor que o valor máximo da matriz
+        n++;
+        for (int i = 0; i < n; i++) { // i percorre rá as linhas e colunas do novo vértice e definirá seus valores contidos como 0
+            matrizAdj[i][n-1] = 0;
+            matrizAdj[n-1][i] = 0;
         }
+        printf("O novo Vértice %d foi inserido com sucesso.\n", n);
     }
     else{
         printf("O número máximo de Vértices foi atingido, não é possível inserir mais vértices.\n");
     }
 }
  
-void deletarVertice(int vertice) {
+void deletarVertice(int vertice) { // FUNÇÃO RESPONSÁVEL POR DELETAR UM VÉRTICE DA MATRIZ
     printf("\n[REMOÇÃO DE UM VÉRTICE]\n");
-    if (vertice == 0) {
+    if (n == 0) { // Situação aonde não elementos para serem removidos da matriz
         printf("A Matriz está vazia, não é possível deletar um Vértice.\n");
         return;
     }
-    if (vertice > n || vertice <= 0) {
-        printf("O Vértice inserido não está presente na Matriz.\n");
+    else if (vertice > n || vertice <= 0) { // Situação aonde o vértice é inválido
+        printf("O Vértice inserido não é válido ou não está presente na Matriz.\n");
         return;
     }
-    for (int i = vertice; i <= n - 1; i++){
-        for (int j = 1; j <= n; j++) {
-            matrizAdj[j][i] = matrizAdj[j][i + 1];
-            matrizAdj[i][j] = matrizAdj[i + 1][j];
-        }
+    else{
+        for (int i = vertice-1; i < n; i++){  // Este for fará com que i e j percorram os elementos da matriz a partir do vértice dado e faram com que eles adquiram o valor de seus sucessores
+            for (int j = 0; j < n; j++) {
+                matrizAdj[j][i] = matrizAdj[j][i + 1];
+                matrizAdj[i][j] = matrizAdj[i + 1][j];
+            }
+         }
     }
-    n--;
+    n--; // Por fim, assim que seus novos valores são colocados n é reduzido para excluir o último valor do alcance da matriz
     printf("Remoção do Vértice %d feita com sucesso.\n", vertice);
 }
 
@@ -93,7 +102,7 @@ int main() {
     printf("===[CÓDIGO - GRAFOS: MATRIZ DE ADJACÊNCIA]===\n");
     printf("Este é um código capaz de criar uma Matriz de Adjacência, juntamente a outras funcionalidades com ela.\n");
 
-    criarMatriz();
+    criarMatriz(); 
     while (continuar == 1) {
         printf("\n==============[OPÇÕES]==============\n");
         printf("| 1.  Inserir um novo Vértice;       |\n");
