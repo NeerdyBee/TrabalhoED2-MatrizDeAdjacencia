@@ -1,5 +1,8 @@
 #include<stdio.h>
-#define max 20 // Define o valor máximo de Vértices que *podem* ser inseridos na Matriz.
+
+// GRUPOS: Luis Gabriel Queiroz Carrijo, Ramiro Vieira de Moura, Tiago Carvalho Rodrigues de Oliveira
+
+#define max 20 // Define o valor máximo de Vértices que podem ser inseridos na Matriz.
 #define false 0;
 #define true 1;
 int matrizAdj[max][max]; // Cria uma matriz de duas dimensões, aonde o valor definido contido nelas é igual a max.
@@ -11,25 +14,27 @@ void criarMatriz() { // FUNÇÃO RESPONSÁVEL PELA CRIAÇÃO DA MATRIZ DE ADJAC�
         printf("Insira o número de Vértices da Matriz: ");
         scanf("%d", &nVertices);
         if (nVertices < 0 || nVertices > max){
-            printf("[ENTRADA INVÁLIDA]\nO número de Vértices não pode ser menor que zero ou maior que o número máximo de Vértices (%d). Tente Novamente.\n", max);
+            printf("\n[ENTRADA INVÁLIDA]\nO número de Vértices não pode ser menor que zero ou maior que o número máximo de Vértices (%d). Tente Novamente.\n", max);
         }
     }while(nVertices < 0 || nVertices > max); // O valor de n é válido apenas se ele for um valor inteiro entre 0 e o valor de max.
-    for (int i = 0; i < nVertices; i++) {
+    
+    for (int i = 0; i < nVertices; i++) { // for responsável por preencher a matriz até o número de vértices inseridos
         for (int j = 0; j < nVertices; j++){
             matrizAdj[i][j] = 0;
         }
     }
+    
     if (matrizEstaVazia() == 0){
         inserirArestas();
     }
 }
 
-int matrizEstaVazia(){
+int matrizEstaVazia(){ // FUNÇÃO QUE CONFERE SE A MATRIZ ESTÁ SEM VÉRTICES
     if (nVertices == 0){
-        return true;
+        return true; // 1
     }
     else{
-        return false;
+        return false; // 0
     }
 }
 
@@ -44,21 +49,21 @@ void inserirArestas(){ // FUNÇÃO RESPONSAVEL PELA INSERÇÃO DAS ARESTAS NA MA
             scanf("%d", &vertice1);
             printf("2º Vértice: ");
             scanf("%d", &vertice2);
-            if ((vertice1 == 0) && (vertice2 == 0)){ // Situação aonde o laço é encerrado
-                printf("\n[INSERÇÃO ENCERRADA]\n");
-                break;
-            }
-            else if (vertice1 >= nVertices || vertice2 >= nVertices || vertice1 < 0 || vertice2 < 0) { // Situação aonde o valor dos vértices inseridos não válidos
+            
+            if (vertice1 >= nVertices || vertice2 >= nVertices || vertice1 < 0 || vertice2 < 0) { // Situação aonde o valor dos vértices inseridos não válidos
                 printf("\n[ENTRADA INVÁLIDA]\nOs valores dos Vértices não podem ser menores ou igual a zero ou maiores que o número de Vértices (Lembre-se que os Vértices se iniciam em 0). Tente Novamente.\n");
-                nArestas--; // nArestas é reduzido para anular seu acréscimo tido no final do laço que contabiliza o número de arestas
             }
             else{
-                matrizAdj[vertice1][vertice2] += 1; // Esta posição matriz recebe mais 1 ao seu valor representando a quantidade de ligações entre os
-                matrizAdj[vertice2][vertice1] += 1; // O incremento ocorre em ambas as posições para garantir a simetria na matriz, assim representando que um vértice possui acesso a outro
+                if (vertice1 == vertice2 && matrizAdj[vertice1][vertice2] > 0){
+                    matrizAdj[vertice1][vertice2] += 1;
+                }else{
+                    matrizAdj[vertice1][vertice2] += 1; // Esta posição matriz recebe mais 1 ao seu valor representando a quantidade de ligações entre os
+                    matrizAdj[vertice2][vertice1] += 1; // O incremento ocorre em ambas as posições para garantir a simetria na matriz, assim representando que um vértice possui acesso a outro
+                }
                 printf("\n[INSERÇÃO REALIZADA]\n");
+                nArestas++;
             }
-            nArestas++;
-            
+    
             do{
                 printf("\nDeseja continuar a Inserção de Arestas?\n");
                 printf("1.   Sim\n2.   Não\n");
@@ -94,14 +99,14 @@ void inserirVertice() { // FUNÇÃO RESPONSÁVEL POR CRIAR UM NOVO VÉRTICE NO F
     printf("\n[INSERÇÃO DE UM NOVO VÉRTICE]\n");
     if(nVertices < max){  // Condição para que seja possível inserir um novo vértice, aonde nVertices ainda seja menor que o valor máximo da matriz
         nVertices++;
-        for (int i = 0; i < nVertices; i++) { // i percorre rá as linhas e colunas do novo vértice e definirá seus valores contidos como 0
+        for (int i = 0; i < nVertices; i++) { // i percorrerá as linhas e colunas do novo vértice e definirá seus valores contidos como 0
             matrizAdj[i][nVertices-1] = 0;
             matrizAdj[nVertices-1][i] = 0;
         }
-        printf("O novo Vértice V%d foi inserido ao final da matriz com sucesso.\n", nVertices-1);
+        printf("\nO novo Vértice V%d foi inserido ao final da matriz com sucesso.\n", nVertices-1);
     }
     else{
-        printf("O número máximo de Vértices foi atingido, não é possível inserir mais vértices.\n");
+        printf("\nO número máximo de Vértices foi atingido, não é possível inserir mais vértices.\n");
     }
 }
  
@@ -168,7 +173,7 @@ int main() {
             continuar = 0;
             break;
         default:
-            printf("\n[OPÇÃO INVÁLIDA]\nCertifique-se de inserir uma opção válida (1, 2, 3 ou 4). Tente Novamente.\n");
+            printf("\n[OPÇÃO INVÁLIDA]\nCertifique-se de inserir uma opção válida (1, 2, 3, 4 ou 5). Tente Novamente.\n");
             break;
         }
     }
