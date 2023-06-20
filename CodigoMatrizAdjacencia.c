@@ -16,7 +16,7 @@ int nArestas = 0; // Define a variavel nArestas que contabilizará a quantidade 
 // FUNÇÃO criaMatriz()
 void criarMatriz() { // RESPONSÁVEL PELA CRIAÇÃO DA MATRIZ DE ADJACÊNCIA
     do{ // Laço de repetição "do-while" que garantirá que o número de vértices iniciais inseridos não seja negativo nem maior que max
-        printf("Insira o número de Vértices da Matriz: ");
+        printf("\nInsira o número de Vértices da Matriz: ");
         scanf("%d", &nVertices);
         if (nVertices < 0 || nVertices > max){ // Condiçãp para mensagem de [ERRO] aparecer
             printf("\n[ENTRADA INVÁLIDA]\nO número de Vértices não pode ser menor que zero ou maior que o número máximo de Vértices (%d). Tente Novamente.\n", max);
@@ -68,7 +68,7 @@ void inserirArestas(){ // RESPONSÁVEL PELA INSERÇÃO DE ARESTAS NA MATRIZ
             
             if (vertice1 >= nVertices || vertice2 >= nVertices || vertice1 < 0 || vertice2 < 0) { 
                 // Condição que apresenta uma mensagem de [ERRO] caso o valor de algum dos Vértices seja negativo, ou maior ou igual ao número de Vértices dentro da Matriz
-                printf("\n[ENTRADA INVÁLIDA]\nOs valores dos Vértices não podem ser menores ou igual a zero ou maiores que o número de Vértices (Lembre-se que os Vértices se iniciam em 0). Tente Novamente.\n");
+                printf("\n[ENTRADA INVÁLIDA]\nOs valores dos Vértices não podem ser menores que zero, ou maiores ou iguais ao número de Vértices (Lembre-se que os Vértices se iniciam em 0). Tente Novamente.\n");
             }
             else{ // Execução caso os Vértices dados são válidos
                 if (vertice1 == vertice2 && matrizAdj[vertice1][vertice2] > 0){
@@ -123,7 +123,7 @@ void apresentar() { // RESPONSÁVEL POR APRESENTAR A MATRIZ PARA O USUÁRIO
     printf("\nINFORMAÇÕES DO GRAFO:\n>Número de Vértices: %4d | Número de Arestas: %4d\n", nVertices, nArestas); // Além da apresentação da Tabela também são impressas outras informações da Matriz
 }
  
-// FUNÇÃO inseriVertice()
+// FUNÇÃO inserirVertice()
 void inserirVertice() { // RESPONSÁVEL POR CRIAR UM NOVO VÉRTICE AO FINAL DA MATRIZ
     printf("\n[INSERÇÃO DE UM NOVO VÉRTICE]\n");
     
@@ -174,8 +174,8 @@ void deletarVertice(int vertice) { // RESPONSÁVEL POR DELETAR UM VÉRTICE A ESC
             }
         }
     }
-    printf("Remoção do Vértice %d feita com sucesso.\nSeus sucessores foram reposicionados e o número de Vértices agora é %d.", vertice, nVertices);
     nVertices--; // Ao final, o número de Vértices é reduzido após feita a deleção
+    printf("Remoção do Vértice %d feita com sucesso.\nSeus sucessores foram reposicionados e o número de Vértices agora é %d.", vertice, nVertices);
 }
 
 int main() {
@@ -187,14 +187,14 @@ int main() {
     printf("Sua estrutura e funcionamento foi baseado no exemplo apresentado em aula, seguindo as seguintes diretrizes:\n");
     printf(">As Arestas do Grafo serão não direcionados, logo a Matriz se apresentará simétrica;\n");
     printf(">Os Vértices do Grafo sempre se iniciaram em 0 ou V0;\n");
-    printf(">Um novo Vértice sempre será inserido ao final da Matriz;\n");
+    printf(">Um novo Vértice sempre será inserido ao final da Matriz;\n\n");
 
     criarMatriz(); 
     while (continuar == 1) {
-        printf("\n==============[OPÇÕES]==============\n");
-        printf("| 1.  Inserir um novo Vértice;      |\n");
+        printf("\n==============[OPÇÕES]================\n");
+        printf("| 1.  Inserir um novo Vértice;       |\n");
         printf("| 2.  Inserir Arestas;               |\n");
-        printf("| 3.  Deletar um Vértice;           |\n");
+        printf("| 3.  Deletar um Vértice;            |\n");
         printf("| 4.  Apresentar Matriz;             |\n");
         printf("| 5.  Encerrar                       |\n");
         printf("======================================\n");
@@ -217,6 +217,7 @@ int main() {
             apresentar();
             break;
         case 5:
+            printf("\n\nCódigo Encerrado.\n\n");
             continuar = 0;
             break;
         default:
